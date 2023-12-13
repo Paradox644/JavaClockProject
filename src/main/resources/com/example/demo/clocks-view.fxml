@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<Pane maxHeight="-Infinity"
+      maxWidth="-Infinity"
+      minHeight="-Infinity"
+      minWidth="-Infinity"
+      prefHeight="60"
+      prefWidth="1000"
+      style="-fx-border-color: black"
+      xmlns="http://javafx.com/javafx/17.0.2-ea"
+      xmlns:fx="http://javafx.com/fxml/1">
+<!--      fx:controller="com.example.demo.ClockController">-->
+    <children>
+        <Button layoutX="18.0" layoutY="20.0" mnemonicParsing="false" onAction="#RemoveClock" text="Remove" />
+        <Label layoutX="125.0" layoutY="24.0" text="Brand:" />
+        <Label layoutX="236.0" layoutY="24.0" text="Price:" />
+        <Label fx:id="cloneBrand" layoutX="172.0" layoutY="24.0" text="Label" />
+        <Label fx:id="clonePrice" layoutX="286.0" layoutY="24.0" text="Label" />
+        <Label fx:id="cloneType" layoutX="418.0" layoutY="24.0" text="Label" />
+
+
+
+        <Label layoutX="337.0" layoutY="24.0" text="Clock type: " />
+        <Label layoutX="469.0" layoutY="24.0" text="Current time: " />
+
+        <Label fx:id="times" layoutX="579.0" layoutY="24.0" prefHeight="17.0" prefWidth="84.0" text="Label" />
+        <Button layoutX="703.0" layoutY="20.0" mnemonicParsing="false" onAction="#SetTime" text="Set time" />
+        <Button layoutX="839.0" layoutY="20.0" mnemonicParsing="false" onAction="#IncreaseTime" text="Increase time" />
+        <Label fx:id="id" layoutX="96.0" layoutY="24.0" text="Label" />
+    </children>
+</Pane>

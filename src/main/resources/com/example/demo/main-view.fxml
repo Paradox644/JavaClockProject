@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="Pane" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+            fx:controller="com.example.demo.MainController">
+  <bottom>
+    <Pane prefHeight="125.0" prefWidth="1000" style = "-fx-background-color:silver; -fx-border-color: black;" BorderPane.alignment="CENTER">
+      <children>
+        <TextField fx:id="brand" layoutX="14.0" layoutY="20.0" prefHeight="25.0" prefWidth="83.0" promptText="Brand" />
+        <TextField fx:id="price" layoutX="106.0" layoutY="20.0" prefHeight="25.0" prefWidth="67.0" promptText="Price, $" />
+        <TextField fx:id="type" layoutX="180.0" layoutY="20.0" prefHeight="25.0" prefWidth="150.0" promptText="Clock type (Hr+Min or Hr+Min+Sec)" />
+        <Button layoutX="351.0" layoutY="20.0" mnemonicParsing="false" onAction="#AddClock" text="Add" />
+        <Label fx:id="error" layoutX="245.0" layoutY="22.0" />
+        <MenuButton layoutX="465.0" layoutY="20.0" mnemonicParsing="false" text="Menu">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#SetAllClocks" text="Set all clocks at a certain time" />
+            <MenuItem mnemonicParsing="false" onAction="#MostPopularBrand" text="Most popular brand" />
+            <MenuItem mnemonicParsing="false" onAction="#HighestPrice" text="Highest priced clock" />
+            <MenuItem mnemonicParsing="false" onAction="#UniqueBrandsSorted" text="Unique clock brands sorted" />
+          </items>
+        </MenuButton>
+        <Button layoutX="550.0" layoutY="20.0" mnemonicParsing="false" onAction="#SaveBin" text="Save as .bin" />
+        <Button layoutX="552.0" layoutY="62.0" mnemonicParsing="false" onAction="#LoadBin" text="Load from .bin" />
+        <Button layoutX="684.0" layoutY="20.0" mnemonicParsing="false" onAction="#SaveJSON" text="Save as .json" />
+        <Button layoutX="684.0" layoutY="62.0" mnemonicParsing="false" onAction="#LoadJSON" text="Load from .json" />
+        <Label fx:id="lb" layoutX="78.0" layoutY="79.0" textFill="WHITE" />
+      </children>
+    </Pane>
+  </bottom>
+  <center>
+    <BorderPane BorderPane.alignment="CENTER">
+      <center>
+        <ScrollPane prefHeight="250" prefWidth="250">
+          <content>
+            <GridPane fx:id="ClocksPane">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100"/>
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="60" prefHeight="30" vgrow="SOMETIMES"/>
+              </rowConstraints>
+            </GridPane>
+          </content>
+        </ScrollPane>
+      </center>
+    </BorderPane>
+  </center>
+</BorderPane>
