@@ -146,7 +146,7 @@ public class MainController implements Server{
         textField.setPromptText("Enter time value");
         ComboBox<String> comboBox = new ComboBox<>();
         comboBox.setPromptText("Enter type of time to change");
-        comboBox.getItems().addAll("HOUR","MIN","SEC");
+        comboBox.getItems().addAll("HOURS","MINUTES","SECONDS");
         VBox vBox = new VBox();
         vBox.getChildren().addAll(textField,comboBox);
         dialog.getDialogPane().setContent(vBox);
@@ -157,7 +157,7 @@ public class MainController implements Server{
                 alert.setHeaderText(null);
                 try {
                     store.SetTimeAll(TIMETYPES.valueOf(comboBox.getValue()), Integer.parseInt(textField.getText()));
-                    alert.setContentText("Clocks set to " + textField.getText() + " " + comboBox.getValue());
+                    alert.setContentText("Clocks set to "+textField.getText()+" "+comboBox.getValue());
                 } catch (CustomTimeExcept exc) {
                     alert.setContentText(exc.getMessage());
                 }

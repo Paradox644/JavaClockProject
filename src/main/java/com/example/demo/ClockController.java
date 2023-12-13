@@ -26,7 +26,7 @@ public class ClockController {
         textField.setPromptText("Enter time value");
         ComboBox<String> comboBox = new ComboBox<>();
         comboBox.setPromptText("Enter type of time to change");
-        comboBox.getItems().addAll("HOUR","MIN","SEC");
+        comboBox.getItems().addAll("HOURS","MINUTES","SECONDS");
         VBox vBox = new VBox();
         vBox.getChildren().addAll(textField,comboBox);
         dialog.getDialogPane().setContent(vBox);
@@ -58,7 +58,7 @@ public class ClockController {
         textField.setPromptText("Enter time value");
         ComboBox<String> comboBox = new ComboBox<>();
         comboBox.setPromptText("Enter type of time to change");
-        comboBox.getItems().addAll("HOUR","MIN","SEC");
+        comboBox.getItems().addAll("HOURS","MINUTES","SECONDS");
         VBox vBox = new VBox();
         vBox.getChildren().addAll(textField,comboBox);
         dialog.getDialogPane().setContent(vBox);

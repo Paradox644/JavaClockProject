@@ -88,6 +88,7 @@ public class ClockStore implements Iterable<TimeInterface>, Serializable {
             _clock.SetTime(timeType,timeValue);
         }
         System.out.println("All clocks have been set to "+timeValue+" "+timeType);
+        events();
     }
     public void forEach(Consumer<? super TimeInterface> action){
         Iterable.super.forEach(action);
