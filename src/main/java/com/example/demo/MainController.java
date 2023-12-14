@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 public class MainController implements Server{
-    ClockStore store = Fabric.build();
+    ClockStore store = ClockBuilder.build();
     int k;
     public MainController(){
     store.AddServer(this);
@@ -40,8 +40,8 @@ public class MainController implements Server{
     public BorderPane Pane;
     @FXML
     public void AddClock(){
-        if(type.getText().equals("Hr+Min")){store.AddClock(new Clock(brand.getText(),Integer.parseInt(price.getText()),0,0,k));k++;}
-        if(type.getText().equals("Hr+Min+Sec")){store.AddClock(new AdvancedClock(brand.getText(),Integer.parseInt(price.getText()),0,0,0,k));k++;}
+        if(type.getText().equals("Hr+Min")){store.AddDB(new Clock(brand.getText(),Integer.parseInt(price.getText()),0,0,k));k++;}
+        if(type.getText().equals("Hr+Min+Sec")){store.AddDB(new AdvancedClock(brand.getText(),Integer.parseInt(price.getText()),0,0,0,k));k++;}
     }
     @FXML
     public void SaveBin(){
@@ -89,7 +89,7 @@ public class MainController implements Server{
             try{
                 ObjectInputStream ois= new ObjectInputStream(new FileInputStream(file));
                 ClockStore rm = (ClockStore) ois.readObject();
-                for (TimeInterface c: rm){store.AddClock(c);}
+                for (TimeInterface c: rm){store.AddDB(c);}
 
             }
             catch(IOException ex){
@@ -116,7 +116,7 @@ public class MainController implements Server{
                         .registerTypeAdapter(AdvancedClock.class, new AdvancedClockAdapter())
                         .create();
                 ClockStore rm = gson.fromJson(reader, ClockStore.class);
-                for (TimeInterface c :rm) {store.AddClock(c);}
+                for (TimeInterface c :rm) {store.AddDB(c);}
 
             }
             catch(IOException ex){System.out.println("Write error code 1");}

@@ -68,4 +68,4 @@ public int GetSec(){
     public String GetTime() {
         return String.format("%02d:%02d:%02d",this.hours,this.minutes,this.seconds);
     }
-};
+}

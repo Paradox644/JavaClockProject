@@ -12,13 +12,16 @@ public class ClockStore implements Iterable<TimeInterface>, Serializable {
     transient ArrayList<Server> servers;
     transient Connection con;
 
-    public ClockStore(){
-        this.clocks=new ArrayList<>();
-        this.servers=new ArrayList<>();
-    }
-    public void AddClock(TimeInterface _clock){
-        clocks.add(_clock);
-        events();
+    public ClockStore(boolean boolDB){
+        if(boolDB){
+            clocks = new ArrayList<>();
+            servers = new ArrayList<>();}
+        else {
+            connect();
+            clocks = new ArrayList<>();
+            servers = new ArrayList<>();
+            selectAllDB();
+        }
     }
     public void RemoveClock(TimeInterface _clock){
         clocks.remove(_clock);
@@ -102,7 +105,92 @@ public class ClockStore implements Iterable<TimeInterface>, Serializable {
             o.event(this);
         });
     }
-
+    void connect(){
+        try{Class.forName("org.sqlite.JDBC");
+            con= DriverManager.getConnection("jdbc:sqlite:clocks.db");
+            System.out.println("Database connected successfully");
+        }
+        catch(ClassNotFoundException ex){
+            System.out.println("Driver not found");
+        }
+        catch(SQLException ex){
+            System.out.println("Could not connect to database");
+        }
+    }
+    public void AddDB(TimeInterface t){
+        if (!ClockBuilder.boolDB) {
+            try {
+                PreparedStatement statement = con.prepareStatement("INSERT INTO Clock_Table(Brand, Price, Type, Hour, Minute, Second) VALUES (?,?,?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
+                statement.setString(1, t.GetBrandName());
+                statement.setInt(2, t.GetPrice());
+                statement.setString(3, t.GetType());
+                statement.setInt(4, t.GetHour());
+                statement.setInt(5, t.GetMin());
+                statement.setInt(6, t.GetSec());
+                int affectedRows = statement.executeUpdate();
+                if (affectedRows == 0) {
+                    throw new SQLException("Creating user failed, no rows affected");
+                }
+                ResultSet genKeys = statement.getGeneratedKeys();
+                if (genKeys.next()) {
+                    t.SetID((int)genKeys.getLong(1));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ClockStore.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        clocks.add(t);
+        CheckID();
+        events();
+    }
+    public void CheckID(){
+        int i=0;
+        for(TimeInterface ti:clocks){
+            ti.SetID(i++);
+        }
+    }
+    public void removeDB(TimeInterface ti){
+        if(!ClockBuilder.boolDB){
+            try {
+            PreparedStatement statement= con.prepareStatement("DELETE FROM Clock_Table WHERE ID = ?");
+            statement.setInt(1,ti.GetID());
+            statement.executeUpdate();
+            }
+            catch(SQLException ex){
+                Logger.getLogger(ClockStore.class.getName()).log(Level.SEVERE,null,ex);
+            }
+        }
+        clocks.remove(ti);
+        CheckID();
+        events(); }
+    void selectAllDB(){
+        clocks.clear();
+        try{
+            Statement st= con.createStatement();
+            ResultSet res = st.executeQuery("select * from Clock_Table");
+            while(res.next()){
+                if(res.getString("Type").equals("Hr+Min")) {
+                    clocks.add(new Clock(res.getString("Brand"),
+                    res.getInt("Price"),
+                    res.getInt("Hour"),
+                    res.getInt("Minute"),
+                    res.getInt("ID")));
+                }
+                if(res.getString("Type").equals("Hr+Min+Sec")) {
+                    clocks.add(new AdvancedClock(res.getString("Brand"),
+                    res.getInt("Price"),
+                    res.getInt("Hour"),
+                    res.getInt("Minute"),
+                    res.getInt("Second"),
+                    res.getInt("ID")));
+                }
+            }
+        }
+        catch(SQLException ex){
+            Logger.getLogger(ClockStore.class.getName()).log(Level.SEVERE,null,ex);
+        }
+        events();
+    }
 
 
 }

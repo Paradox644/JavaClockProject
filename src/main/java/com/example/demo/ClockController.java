@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 public class ClockController {
-    ClockStore store = Fabric.build();
+    ClockStore store = ClockBuilder.build();
     TimeInterface t;
     @FXML
     public Label id;

@@ -85,4 +85,4 @@ public class Clock implements TimeInterface {
     public String GetTime() {
         return String.format("%02d:%02d",this.hours,this.minutes);
     }
-};
+}

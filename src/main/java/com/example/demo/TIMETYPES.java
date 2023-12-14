@@ -1,4 +1,4 @@
 package com.example.demo;
 public enum TIMETYPES {
-HOURS,MINUTES,SECONDS;
+HOURS,MINUTES,SECONDS
 }
